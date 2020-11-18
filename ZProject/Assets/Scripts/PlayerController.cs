@@ -20,14 +20,16 @@ public class PlayerController : MonoBehaviour
     [Header("Character Metrics")]
     public float walkSpeed = 3;
     public float runSpeed = 6;
-    public float jumpHeight = 3f;
-    public float safeFall = 6; 
-    public float deathFall = 10;
+    [Header("Character Stats")]
+    public float health = 100f;
+
 
     private Rigidbody body;
     private float speed;
     float turnSmooth;
     private Vector3 mousePos;
+
+
 
 
     private void Awake()
@@ -62,10 +64,10 @@ public class PlayerController : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-        }
+        //if (Input.GetButtonDown("Jump") && isGrounded)
+        //{
+        //    velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        //}
 
         //gravity
         velocity.y += gravity * Time.deltaTime;
@@ -91,10 +93,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movDir = new Vector3(horizontal, 0, vertical);
         controller.Move(movDir.normalized * speed * Time.deltaTime);
-
-        
-
-
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

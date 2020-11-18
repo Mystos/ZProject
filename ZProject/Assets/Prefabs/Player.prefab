@@ -274,13 +274,11 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   offset: 2
   walkSpeed: 3
   runSpeed: 6
-  jumpHeight: 3
-  safeFall: 6
-  deathFall: 10
+  health: 100
 --- !u!1 &6390179039008447670
 GameObject:
   m_ObjectHideFlags: 0
