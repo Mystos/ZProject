@@ -264,7 +264,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 26.991467
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -289,13 +289,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673390162}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 9.49, z: 0.4699993}
+  m_LocalRotation: {x: 0.38397303, y: 0, z: 0, w: 0.9233443}
+  m_LocalPosition: {x: 0, y: 39.9, z: -36.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.16, y: 0, z: 0}
 --- !u!1 &2135589734
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,8 +308,8 @@ GameObject:
   - component: {fileID: 2135589737}
   - component: {fileID: 2135589736}
   - component: {fileID: 2135589735}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 8
+  m_Name: Sol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135589734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.093, y: -0.4586, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 0.8, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -401,6 +401,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1673390164}
+    - target: {fileID: 2895079136142262368, guid: 23809fa020202ac439663b56b59dfb5a,
+        type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 5353070964116175401, guid: 23809fa020202ac439663b56b59dfb5a,
         type: 3}
       propertyPath: cam
