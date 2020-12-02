@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 5353070964116175447}
   - component: {fileID: 3641303691326507517}
   - component: {fileID: 2895079136142262368}
+  - component: {fileID: 1498666829656299503}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -278,7 +279,25 @@ MonoBehaviour:
   offset: 2
   walkSpeed: 3
   runSpeed: 6
-  health: 100
+  stats: {fileID: 1498666829656299503}
+--- !u!114 &1498666829656299503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353070964116175402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc19679df6536984f8d88d481e286c9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth:
+    baseValue: 100
+  damage:
+    baseValue: 0
+  armor:
+    baseValue: 0
 --- !u!1 &6390179039008447670
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 3;
     public float runSpeed = 6;
     [Header("Character Stats")]
-    public float health = 100f;
+    public PlayerStats stats;
+
 
 
     private Rigidbody body;

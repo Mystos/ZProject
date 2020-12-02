@@ -9,6 +9,6 @@ public class RessourcesUI : MonoBehaviour
 
     private void Update()
     {
-        sliderHealth.value = GameManager.Instance.player.health;
+        sliderHealth.value = GameManager.Instance.player.stats.currentHealth;
     }
 }
