@@ -531,6 +531,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1498666829656299503, guid: 23809fa020202ac439663b56b59dfb5a,
+        type: 3}
+      propertyPath: armor.baseValue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2895079136142262368, guid: 23809fa020202ac439663b56b59dfb5a,
         type: 3}
       propertyPath: cam

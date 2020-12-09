@@ -26,13 +26,12 @@ public class CharacterStats : MonoBehaviour
 	// Damage the character
 	public void TakeDamage(int damage)
 	{
-		// Subtract the armor value - Make sure damage doesn't go below 0.
-		damage -= armor.GetValue();
-		damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
-		// Subtract damage from health
-		currentHealth -= damage;
-		Debug.Log(transform.name + " takes " + damage + " damage.");
+		int armorDamage = Mathf.Min(armor.GetValue(), damage);
+		int healthDamage = Mathf.Min(currentHealth, damage - armorDamage);
+		armor.AddModifier(-armorDamage);
+		currentHealth -= healthDamage;
+		Debug.Log(transform.name + " takes " + armorDamage + " armor damage and " + healthDamage + " health damage");
 
 		// If we hit 0. Die.
 		if (currentHealth <= 0)

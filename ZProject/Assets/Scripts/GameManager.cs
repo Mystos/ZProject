@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public PlayerController player;
+    internal PlayerController player;
 
     private void Awake()
     {
@@ -21,6 +21,18 @@ public class GameManager : MonoBehaviour
         }
 
         player = FindObjectOfType<PlayerController>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.stats.TakeDamage(10);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            player.stats.armor.AddModifier(10);
+        }
     }
 
 
