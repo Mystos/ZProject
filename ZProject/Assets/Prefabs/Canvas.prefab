@@ -2027,6 +2027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 4643474246634470982}
+  optionMenuUI: {fileID: 1279201490894317889}
   volumeSlider: {fileID: 6359418598084270580}
   volumeMusicSlider: {fileID: 6270864873089559260}
   volumeSoundSlider: {fileID: 4132002671175158044}

@@ -13,6 +13,8 @@ public class PauseMenu : MonoBehaviour
 
     //public GameObject winMenuUI;
     public GameObject pauseMenuUI;
+    public GameObject optionMenuUI;
+
     public Slider volumeSlider;
     public Slider volumeMusicSlider;
     public Slider volumeSoundSlider;
@@ -48,6 +50,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        optionMenuUI.SetActive(false);
         Time.timeScale = 1f;
         IsGamePaused = false;
 
@@ -56,6 +59,7 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        optionMenuUI.SetActive(false);
         Time.timeScale = 0f;
         IsGamePaused = true;
     }
