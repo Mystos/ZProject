@@ -52,9 +52,11 @@ public class InteractionSystem : MonoBehaviour
 
         }
 
-        if (Input.GetButtonDown("Interact") && CanInteract()) {
-            Debug.Log("Interaction");
-            selectedInteraction.GetComponent<Interactable>().Interact();
+        if (CanInteract()) {
+            if (Input.GetButtonDown("Interact")) { // Here, we can add "holding" interaction for some objects
+                Debug.Log("Interaction");
+                selectedInteraction.GetComponent<Interactable>().Interact();
+            }
         }
         
     }
@@ -65,12 +67,10 @@ public class InteractionSystem : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Added : " + other.name);
         interactableColliders.Add(other);
     }
 
     void OnTriggerExit(Collider other) {
-        Debug.Log("Removed : " + other.name);
         interactableColliders.Remove(other);
     }
 

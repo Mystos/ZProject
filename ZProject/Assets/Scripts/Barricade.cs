@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Barricade : MonoBehaviour
+public class Barricade : Interactable
 {
 
     // First plank = first to be destroyed and last to be repaired
@@ -27,8 +27,6 @@ public class Barricade : MonoBehaviour
     private void Update() {
         destroyTimer += Time.deltaTime;
         repairTimer += Time.deltaTime;
-
-        Debug.Log(isOpen());
     }
 
 
@@ -80,20 +78,15 @@ public class Barricade : MonoBehaviour
         return nextPlank == planks.Count;
     }
 
-    //Test method
-    private void OnMouseOver() {
-
-        if (Input.GetMouseButton(0)) {
-            isBeingDestroyed = true;
-            destroyBarricade();
-        } else {
-            isBeingDestroyed = false;
-        }
-
-        if (Input.GetMouseButton(1)){
-            repairBarricade();
-        }
-
+    public override void Interact() {
+        repairBarricade();
     }
 
+    public override void ShowInteractionInterface() {
+        //Debug.Log(name + " : Showing Interaction Interface");
+    }
+
+    public override void HideInteractionInterface() {
+        //Debug.Log(name + " : Hiding Interaction Interface");
+    }
 }
