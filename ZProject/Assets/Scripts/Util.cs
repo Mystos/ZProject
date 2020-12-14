@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Util
+public static class Util
 {
 
 	public static void SetLayerRecursively(GameObject _obj, int _newLayer)

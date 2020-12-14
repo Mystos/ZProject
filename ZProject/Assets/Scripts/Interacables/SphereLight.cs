@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SphereLight : Interactable
 {
-
     public bool IsOn;
     public Light sphereLight;
 

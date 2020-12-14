@@ -130,7 +130,7 @@ public class PlayerShoot : MonoBehaviour
 
     }
 
-    void CmdPlayerShot(string _playerID, int _damage, string _sourceID)
+    void CmdPlayerShot(string _playerID, float _damage, string _sourceID)
     {
         Debug.Log(_playerID + " has been shot.");
 

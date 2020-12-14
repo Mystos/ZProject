@@ -5,8 +5,14 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
 	FireWeaponData data;
-    public float actualDamages;
+    public float damage;
     public int loaderData;
+    public int maxBullets;
+    public int bullets;
+    public float fireRate;
+    public float range;
+    public float reloadTime;
+    public GameObject graphics;
 
     public PlayerWeapon()
 	{
