@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 mousePos;
 
 
-
-
     private void Awake()
     {
         controller = GetComponent<CharacterController>();

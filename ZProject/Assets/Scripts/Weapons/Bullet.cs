@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Rigidbody rigidbody;
+    [SerializeField] GameObject hitEffectPrefab;
+
+    public float Velocity { get; set; }
+
+
+    void FixedUpdate()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        transform.Translate(Velocity * transform.forward * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Zombies"))
+        if (other.gameObject.layer == GameManager.Instance.zombiesLayer)
         {
             Destroy(other.gameObject);
         }

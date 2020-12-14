@@ -4,86 +4,103 @@ using System.Collections;
 
 public class WeaponManager : MonoBehaviour
 {
-
-    [SerializeField]
-    private string weaponLayerName = "Weapon";
-
     [SerializeField]
     private Transform weaponHolder;
 
-    [SerializeField]
-    private PlayerWeapon primaryWeapon;
-
-    private PlayerWeapon currentWeapon;
-    private WeaponGraphics currentGraphics;
+    private FireWeapon currentWeapon;
+    private FireWeapon[] weapons;
 
     public bool isReloading = false;
 
     void Start()
     {
-        EquipWeapon(primaryWeapon);
     }
 
-    public PlayerWeapon GetCurrentWeapon()
+    private void Update()
     {
-        return currentWeapon;
+        if (currentWeapon.LoaderAmount < currentWeapon.MaxLoaderCapacity)
+        {
+            if (Input.GetButtonDown("Reload"))
+            {
+                ReloadWeapon();
+                return;
+            }
+        }
+
+        if (currentWeapon.FireRate <= 0f)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Fire();
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                InvokeRepeating("Shoot", 0f, 1f / currentWeapon.FireRate);
+            }
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                CancelInvoke("Shoot");
+            }
+        }
     }
 
-    public WeaponGraphics GetCurrentGraphics()
+    void Fire()
     {
-        return currentGraphics;
+        if (isReloading)
+        {
+            return;
+        }
+
+        if (currentWeapon.BulletsAmount <= 0)
+        {
+            ReloadWeapon();
+            return;
+        }
     }
 
-    void EquipWeapon(PlayerWeapon _weapon)
+
+    void EquipWeapon(FireWeapon weapon)
     {
-        currentWeapon = _weapon;
+        currentWeapon = weapon;
+    }
 
-        GameObject _weaponIns = (GameObject)Instantiate(_weapon.graphics, weaponHolder.position, weaponHolder.rotation);
-        _weaponIns.transform.SetParent(weaponHolder);
-
-        currentGraphics = _weaponIns.GetComponent<WeaponGraphics>();
-        if (currentGraphics == null)
-            Debug.LogError("No WeaponGraphics component on the weapon object: " + _weaponIns.name);
-
-        Util.SetLayerRecursively(_weaponIns, LayerMask.NameToLayer(weaponLayerName));
+    void PickWeapon()
+    {
 
     }
 
-    public void Reload()
+    public void ReloadWeapon()
     {
         if (isReloading)
             return;
 
-        StartCoroutine(Reload_Coroutine());
+        StartCoroutine(ReloadCoroutine());
     }
 
-    private IEnumerator Reload_Coroutine()
+    private IEnumerator ReloadCoroutine()
     {
         Debug.Log("Reloading...");
 
         isReloading = true;
 
-        CmdOnReload();
+        //PlayReloadAnim()
 
-        yield return new WaitForSeconds(currentWeapon.reloadTime);
+        yield return new WaitForSeconds(currentWeapon.ReloadTime);
 
-        currentWeapon.bullets = currentWeapon.maxBullets;
+        currentWeapon.Refill();
 
         isReloading = false;
     }
 
-    void CmdOnReload()
+    private void PlayReloadAnim()
     {
-        RpcOnReload();
-    }
-
-    void RpcOnReload()
-    {
-        Animator anim = currentGraphics.GetComponent<Animator>();
+        Animator anim = GetComponent<Animator>();
         if (anim != null)
         {
             anim.SetTrigger("Reload");
         }
     }
-
 }
