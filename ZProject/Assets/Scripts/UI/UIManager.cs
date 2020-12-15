@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject interactionPanel;
     [SerializeField] TextMeshProUGUI interactionText;
     [SerializeField] TextMeshProUGUI bulletMagazineText;
+    [SerializeField] TextMeshProUGUI moneyText;
 
     private void Awake()
     {
@@ -38,11 +39,15 @@ public class UIManager : MonoBehaviour
     {
         sliderHealth.value = GameManager.Instance.player.stats.currentHealth;
         sliderArmor.value = GameManager.Instance.player.stats.armor.GetValue();
+
         PlayerShooter shooter = GameManager.Instance.player.GetComponent<PlayerShooter>();
         if (shooter.CurrentWeapon)
             bulletMagazineText.text = $"{shooter.CurrentWeapon.LoaderAmount}/{shooter.CurrentWeapon.BulletsAmount}";
         else
             bulletMagazineText.text = "";
+
+        PlayerGear playerGear = GameManager.Instance.player.GetComponent<PlayerGear>();
+        moneyText.text = $"${playerGear.CurrentMoney}";
     }
 
     public void ShowInteractionPanel(string displayText)

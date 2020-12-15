@@ -20,8 +20,8 @@ public class Bullet : MonoBehaviour
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
         if (zombie)
             Destroy(collision.gameObject);
-
-        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        else
+            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
 
     }

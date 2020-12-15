@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerGear : MonoBehaviour
 {
     public int startMoney;
-    private int currentMoney;
+    public int CurrentMoney { get; private set; }
 
     void Start()
     {
-        currentMoney = startMoney;
+        CurrentMoney = startMoney;
     }
 
 
     public bool Buy(int price)
     {
-        if (currentMoney - price >= 0)
+        if (CurrentMoney - price >= 0)
         {
-            currentMoney -= price;
+            CurrentMoney -= price;
             return true;
         }
         else
