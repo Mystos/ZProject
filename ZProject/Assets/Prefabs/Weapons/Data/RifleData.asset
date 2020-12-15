@@ -21,4 +21,4 @@ MonoBehaviour:
   range: 0
   reloadTime: 1
   fireRate: 1
-  bulletSpeed: 10
+  bulletSpeed: 30

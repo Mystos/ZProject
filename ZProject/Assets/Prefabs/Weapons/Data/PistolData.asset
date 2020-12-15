@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a60d1c4e6702464c9a9400c0728a120, type: 3}
   m_Name: PistolData
   m_EditorClassIdentifier: 
-  name: Rifle
+  name: Pistol
   baseDamages: 5
   upgradeFactor: 1.5
   cost: 5
@@ -21,4 +21,4 @@ MonoBehaviour:
   range: 0
   reloadTime: 1
   fireRate: 0.5
-  bulletSpeed: 10
+  bulletSpeed: 30
