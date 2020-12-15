@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 using System.Collections;
 
 public class PlayerShooter : MonoBehaviour
@@ -43,11 +42,11 @@ public class PlayerShooter : MonoBehaviour
             {
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    InvokeRepeating("Shoot", 0f, 1f / CurrentWeapon.FireRate);
+                    InvokeRepeating("Fire", 0f, 1f / CurrentWeapon.FireRate);
                 }
                 else if (Input.GetButtonUp("Fire1"))
                 {
-                    CancelInvoke("Shoot");
+                    CancelInvoke("Fire");
                 }
             }
         }

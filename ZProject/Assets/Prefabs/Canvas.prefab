@@ -920,7 +920,7 @@ MonoBehaviour:
   sliderArmor: {fileID: 7609043023843834057}
   interactionPanel: {fileID: 1980508991775131930}
   interactionText: {fileID: 5883738424983174999}
-  bulletMagazineText: {fileID: 0}
+  bulletMagazineText: {fileID: 1249978396}
 --- !u!1 &1778658119048618138
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WeaponDispenser : Interactable
 {
-    public Transform weaponPosition;
-    public FireWeapon weaponPrefab;
+    [SerializeField] Transform weaponPosition;
+    [SerializeField] FireWeapon weaponPrefab;
+    [SerializeField] float rotSpeed = 1f;
     private GameObject weaponGraphics;
 
-    private float rotSpeed = 1f;
 
     public override void HideInteractionInterface()
     {

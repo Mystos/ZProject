@@ -77,8 +77,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPosition: {fileID: 4812199333970826816}
-  weaponPrefab: {fileID: -6927435999492876402, guid: 9bcebfedf281243448a8daea9cc252ea,
+  weaponPrefab: {fileID: -6927435999492876402, guid: b9f2fb447b0df814082e3a8a196df0b1,
     type: 3}
+  rotSpeed: 0.5
 --- !u!135 &8350578497280143286
 SphereCollider:
   m_ObjectHideFlags: 0
