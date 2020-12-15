@@ -28,6 +28,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        interactionPanel.SetActive(false);
+    }
+
     private void Update()
     {
         sliderHealth.value = GameManager.Instance.player.stats.currentHealth;

@@ -2,18 +2,21 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-public class WeaponManager : MonoBehaviour
+public class PlayerShooter : MonoBehaviour
 {
-    [SerializeField]
-    private Transform weaponHolder;
+    [SerializeField] Transform weaponHolder;
 
-    private FireWeapon currentWeapon;
     private FireWeapon[] weapons;
+    private FireWeapon currentWeapon;
+    private int weaponIndex = 0;
+
+    private int weaponCount = 3;
 
     public bool isReloading = false;
 
     void Start()
     {
+        weapons = new FireWeapon[weaponCount];
     }
 
     private void Update()
@@ -45,6 +48,15 @@ public class WeaponManager : MonoBehaviour
                 CancelInvoke("Shoot");
             }
         }
+
+        if (Input.GetKeyDown("SwapWeapon"))
+        {
+            weaponIndex++;
+            if (weaponIndex >= weaponCount)
+                weaponIndex = 0;
+
+            EquipWeapon(weapons[weaponIndex]);
+        }
     }
 
     void Fire()
@@ -61,15 +73,20 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-
-    void EquipWeapon(FireWeapon weapon)
+    public void PickUpWeapon(FireWeapon weaponPrefab)
     {
-        currentWeapon = weapon;
+        FireWeapon weapon = Instantiate(weaponPrefab, weaponHolder);
+        EquipWeapon(weapon);
     }
 
-    void PickWeapon()
+    public void DropWeapon(FireWeapon weaponPrefab)
     {
 
+    }
+
+    public void EquipWeapon(FireWeapon weapon)
+    {
+        currentWeapon = weapon;
     }
 
     public void ReloadWeapon()

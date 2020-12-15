@@ -19,26 +19,33 @@ public class Barricade : Interactable
     public float repairCooldown = 1.0f;
     public float repairTimer = 0.0f;
 
-    private void Start() {
+    private int repairCost = 10;
+
+    private void Start()
+    {
         destroyTimer = destroyCooldown;
         repairTimer = repairCooldown;
     }
 
-    private void Update() {
+    private void Update()
+    {
         destroyTimer += Time.deltaTime;
         repairTimer += Time.deltaTime;
     }
 
 
-    public void destroyBarricade() {
+    public void destroyBarricade()
+    {
 
         // If all planks are already destroyed
-        if (nextPlank == planks.Count) {
+        if (nextPlank == planks.Count)
+        {
             return;
         }
 
         // Checking cooldown
-        if (destroyTimer < destroyCooldown) {
+        if (destroyTimer < destroyCooldown)
+        {
             return;
         }
 
@@ -49,20 +56,24 @@ public class Barricade : Interactable
 
     }
 
-    public void repairBarricade() {
+    public void repairBarricade()
+    {
 
         // If all planks are already repaired
-        if (nextPlank == 0) {
+        if (nextPlank == 0)
+        {
             return;
         }
 
         // Checking if this barricade is being destroyed
-        if (isBeingDestroyed) {
+        if (isBeingDestroyed)
+        {
             return;
         }
 
         // Checking cooldown
-        if (repairTimer < repairCooldown) {
+        if (repairTimer < repairCooldown)
+        {
             return;
         }
 
@@ -73,20 +84,35 @@ public class Barricade : Interactable
 
     }
 
-    private bool isOpen() {
+    private bool isOpen()
+    {
         // Only if every child is not active
         return nextPlank == planks.Count;
     }
 
-    public override void Interact() {
-        repairBarricade();
+    public override void Interact(GameObject playerRoot)
+    {
+        PlayerGear playerMoney = playerRoot.GetComponent<PlayerGear>();
+        if (playerMoney)
+        {
+            if (playerMoney.Buy(repairCost))
+            {
+                repairBarricade();
+            }
+            else
+                Debug.Log("Not enough money to repair");
+        }
+        else
+            Debug.LogError("Can't find PlayerGear in " + playerRoot.name);
     }
 
-    public override void ShowInteractionInterface() {
-        //Debug.Log(name + " : Showing Interaction Interface");
+    public override void ShowInteractionInterface()
+    {
+        UIManager.Instance.ShowInteractionPanel($"Repair (10$)");
     }
 
-    public override void HideInteractionInterface() {
-        //Debug.Log(name + " : Hiding Interaction Interface");
+    public override void HideInteractionInterface()
+    {
+        UIManager.Instance.HideInteractionPanel();
     }
 }

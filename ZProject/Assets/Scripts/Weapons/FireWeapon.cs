@@ -6,10 +6,11 @@ public enum EWeaponType { Pistol, Shotgun, Smg, Sniper, MachineGun }
 
 public class FireWeapon : MonoBehaviour
 {
-    [SerializeField] WeaponData data;
+    public WeaponData data;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject fireEffectPrefab;
+    [SerializeField] GameObject[] upgradeGraphics;
 
     public float CurrentDamages { get; private set; }
     public float FireRate { get; private set; }
@@ -20,7 +21,6 @@ public class FireWeapon : MonoBehaviour
     public int BulletsAmount { get; private set; }
     //public int MaxBullets { get; private set; }
 
-    GameObject[] upgradeGraphics;
 
     private GameObject currentGraphics;
     private int upgradeLevel = 1;

@@ -9,68 +9,81 @@ public class InteractionSystem : MonoBehaviour
     // If the object is destroyed while being INSIDE the list, it will remain in it permanently
     // Then the object should remove itself from the list before being destroyed
 
-    public List<Collider> interactableColliders;
-    public Collider selectedInteraction;
+    private List<Interactable> interactableObjects;
+    private Interactable selectedInteraction;
 
-    void Start() {
-        interactableColliders = new List<Collider>();
+    void Start()
+    {
+        interactableObjects = new List<Interactable>();
         selectedInteraction = null;
     }
 
-    void Update() {
+    void Update()
+    {
 
         // If empty, we hide the latest selected if it exist
-        if (interactableColliders.Count == 0) {
-            if (selectedInteraction != null) {
-                selectedInteraction.GetComponent<Interactable>().HideInteractionInterface();
+        if (interactableObjects.Count == 0)
+        {
+            if (selectedInteraction != null)
+            {
+                selectedInteraction.GetComponent<Interactable>().HideInteractionInterface();  //To be replaced by UIManager.Instance.HideInteractionPanel();  ?
                 selectedInteraction = null;
             }
             //Else nothing happens
         }
-        else { // If not empty, we find the closest one, replace the selected one by the closest and show it
+        else
+        { // If not empty, we find the closest one, replace the selected one by the closest and show it
 
-            Collider closestCollider = interactableColliders[0];
-            float closestDistance = Vector3.Distance(transform.position, closestCollider.transform.position);
+            Interactable closest = interactableObjects[0];
+            float closestDistance = Vector3.Distance(transform.position, closest.transform.position);
 
-            for (int i = 1; i < interactableColliders.Count; i++) {
-
-                float newDistance = Vector3.Distance(transform.position, interactableColliders[i].transform.position);
-                if (newDistance < closestDistance) {
+            for (int i = 1; i < interactableObjects.Count; i++)
+            {
+                float newDistance = Vector3.Distance(transform.position, interactableObjects[i].transform.position);
+                if (newDistance < closestDistance)
+                {
                     closestDistance = newDistance;
-                    closestCollider = interactableColliders[i];
+                    closest = interactableObjects[i];
                 }
             }
 
-            if (selectedInteraction != null) {
+            if (selectedInteraction != null)
+            {
                 selectedInteraction.GetComponent<Interactable>().HideInteractionInterface();
             }
 
-            selectedInteraction = closestCollider;
-
-            selectedInteraction.GetComponent<Interactable>().ShowInteractionInterface();
-
+            selectedInteraction = closest;
+            selectedInteraction.ShowInteractionInterface();
         }
 
-        if (CanInteract()) {
-            if (Input.GetButtonDown("Interact")) { // Here, we can add "holding" interaction for some objects
-                Debug.Log("Interaction");
-                selectedInteraction.GetComponent<Interactable>().Interact();
+        if (CanInteract())
+        {
+            if (Input.GetButtonDown("Interact"))
+            { // Here, we can add "holding" interaction for some objects
+                selectedInteraction.GetComponent<Interactable>().Interact(gameObject);
             }
         }
-        
+
     }
 
     // We can add stuff like 'isGrounded' or anything we need here
-    private bool CanInteract() {
+    private bool CanInteract()
+    {
         return selectedInteraction != null;
     }
 
-    void OnTriggerEnter(Collider other) {
-        interactableColliders.Add(other);
+    void OnTriggerEnter(Collider other)
+    {
+        Interactable interactObj = other.GetComponent<Interactable>();
+        if (interactObj)
+            interactableObjects.Add(interactObj);
     }
 
-    void OnTriggerExit(Collider other) {
-        interactableColliders.Remove(other);
+    void OnTriggerExit(Collider other)
+    {
+        Interactable interactObj = other.GetComponent<Interactable>();
+        if (interactableObjects.Contains(interactObj))
+            interactableObjects.Remove(interactObj);
     }
 
 }
