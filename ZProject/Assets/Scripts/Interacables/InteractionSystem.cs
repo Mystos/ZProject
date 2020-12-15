@@ -39,7 +39,6 @@ public class InteractionSystem : MonoBehaviour
                     closestDistance = newDistance;
                     closestCollider = interactableColliders[i];
                 }
-
             }
 
             if (selectedInteraction != null) {
