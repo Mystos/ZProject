@@ -16,10 +16,10 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == GameManager.Instance.zombiesLayer)
-        {
+
+        Zombie zombie = collision.gameObject.GetComponent<Zombie>();
+        if (zombie)
             Destroy(collision.gameObject);
-        }
 
         Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
