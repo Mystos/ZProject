@@ -5,12 +5,12 @@ using System.Collections;
 public class PlayerShooter : MonoBehaviour
 {
     [SerializeField] Transform weaponHolder;
+    [SerializeField] int weaponCount = 2;
 
+    public FireWeapon CurrentWeapon { get; private set; }
     private FireWeapon[] weapons;
-    private FireWeapon currentWeapon;
     private int weaponIndex = 0;
 
-    private int weaponCount = 3;
 
     public bool isReloading = false;
 
@@ -21,41 +21,44 @@ public class PlayerShooter : MonoBehaviour
 
     private void Update()
     {
-        if (currentWeapon.LoaderAmount < currentWeapon.MaxLoaderCapacity)
+        if (CurrentWeapon != null)
         {
-            if (Input.GetButtonDown("Reload"))
+            if (CurrentWeapon.LoaderAmount < CurrentWeapon.MaxLoaderCapacity)
             {
-                ReloadWeapon();
-                return;
+                if (Input.GetButtonDown("Reload"))
+                {
+                    ReloadWeapon();
+                    return;
+                }
+            }
+
+            if (CurrentWeapon.FireRate <= 0f)
+            {
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Fire();
+                }
+            }
+            else
+            {
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    InvokeRepeating("Shoot", 0f, 1f / CurrentWeapon.FireRate);
+                }
+                else if (Input.GetButtonUp("Fire1"))
+                {
+                    CancelInvoke("Shoot");
+                }
             }
         }
 
-        if (currentWeapon.FireRate <= 0f)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Fire();
-            }
-        }
-        else
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                InvokeRepeating("Shoot", 0f, 1f / currentWeapon.FireRate);
-            }
-            else if (Input.GetButtonUp("Fire1"))
-            {
-                CancelInvoke("Shoot");
-            }
-        }
-
-        if (Input.GetKeyDown("SwapWeapon"))
+        if (Input.GetButtonDown("SwapWeapons"))
         {
             weaponIndex++;
             if (weaponIndex >= weaponCount)
                 weaponIndex = 0;
 
-            EquipWeapon(weapons[weaponIndex]);
+            EquipWeapon(weaponIndex);
         }
     }
 
@@ -66,7 +69,7 @@ public class PlayerShooter : MonoBehaviour
             return;
         }
 
-        if (currentWeapon.BulletsAmount <= 0)
+        if (CurrentWeapon.BulletsAmount <= 0)
         {
             ReloadWeapon();
             return;
@@ -75,18 +78,27 @@ public class PlayerShooter : MonoBehaviour
 
     public void PickUpWeapon(FireWeapon weaponPrefab)
     {
-        FireWeapon weapon = Instantiate(weaponPrefab, weaponHolder);
-        EquipWeapon(weapon);
+        if (weapons[weaponIndex] != null)
+        {
+            Destroy(weapons[weaponIndex].gameObject);
+        }
+
+        FireWeapon newWeapon = Instantiate(weaponPrefab, weaponHolder);
+        newWeapon.Init();
+        weapons[weaponIndex] = newWeapon;
+        EquipWeapon(weaponIndex);
     }
 
-    public void DropWeapon(FireWeapon weaponPrefab)
+    public void EquipWeapon(int index)
     {
-
-    }
-
-    public void EquipWeapon(FireWeapon weapon)
-    {
-        currentWeapon = weapon;
+        CurrentWeapon = weapons[index];
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] != null)
+                weapons[i].Unequip();
+        }
+        if (CurrentWeapon != null)
+            CurrentWeapon.Equip();
     }
 
     public void ReloadWeapon()
@@ -105,9 +117,9 @@ public class PlayerShooter : MonoBehaviour
 
         //PlayReloadAnim()
 
-        yield return new WaitForSeconds(currentWeapon.ReloadTime);
+        yield return new WaitForSeconds(CurrentWeapon.ReloadTime);
 
-        currentWeapon.Refill();
+        CurrentWeapon.Refill();
 
         isReloading = false;
     }
