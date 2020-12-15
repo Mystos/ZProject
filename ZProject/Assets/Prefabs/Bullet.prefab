@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4569c787f62d4eb4bb6daa237470508e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 5718294960948683209}
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 2369526214185798334, guid: 5a1674860ffc75d4ab918ae353fff444,
+    type: 3}
 --- !u!54 &5718294960948683209
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

@@ -68,11 +68,13 @@ public class PlayerShooter : MonoBehaviour
             return;
         }
 
-        if (CurrentWeapon.BulletsAmount <= 0)
+        if (CurrentWeapon.LoaderAmount <= 0)
         {
             ReloadWeapon();
             return;
         }
+
+        CurrentWeapon.Fire();
     }
 
     public void PickUpWeapon(FireWeapon weaponPrefab)

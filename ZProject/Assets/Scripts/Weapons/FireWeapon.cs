@@ -47,8 +47,8 @@ public class FireWeapon : MonoBehaviour
 
     public void Fire()
     {
-        BulletsAmount--;
-        GameObject go = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(transform.forward, transform.up));
+        LoaderAmount--;
+        GameObject go = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(transform.forward, Vector3.up));
         Bullet bullet = go.GetComponent<Bullet>();
         if (bullet)
         {

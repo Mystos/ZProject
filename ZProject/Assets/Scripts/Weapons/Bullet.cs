@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] Rigidbody rigidbody;
+    //[SerializeField] Rigidbody rigidbody;
     [SerializeField] GameObject hitEffectPrefab;
 
     public float Velocity { get; set; }
-
 
     void FixedUpdate()
     {
         transform.Translate(Velocity * transform.forward * Time.fixedDeltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.layer == GameManager.Instance.zombiesLayer)
+        if (collision.gameObject.layer == GameManager.Instance.zombiesLayer)
         {
-            Destroy(other.gameObject);
+            Destroy(collision.gameObject);
         }
+
+        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+
     }
 }
