@@ -71,7 +71,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6067709989548359875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d02e25ae1b08f224095e8c88ad8da87e, type: 3}
+  m_Script: {fileID: 11500000, guid: c9f8d509b20fe13429b0cff145787c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactableColliders: []

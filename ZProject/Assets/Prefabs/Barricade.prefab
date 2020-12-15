@@ -412,15 +412,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3772809297013127009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c11eb6a730d024588b81149599c092, type: 3}
+  m_Script: {fileID: 11500000, guid: 138d9322a7e5ac043886f3ea53162ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextPlank: 0
-  planks:
-  - {fileID: 3165190811129426178}
-  - {fileID: 1771802010819389106}
-  - {fileID: 8415510510468687358}
-  - {fileID: 5667970326926949028}
+  planks: []
   isBeingDestroyed: 0
   destroyCooldown: 0.8
   destroyTimer: 0
