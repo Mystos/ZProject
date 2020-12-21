@@ -5,7 +5,12 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
+    public Stat maxHealth;          // Maximum amount of health
+    public int CurrentHealth { get; protected set; }    // Current amount of health
+
     private NavMeshAgent agent;
+
+
     
     void Start()
     {

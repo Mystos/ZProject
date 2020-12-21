@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public LayerMask zombiesLayer;
     public LayerMask groundLayer;
 
+    public GameObject ZObj;
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,10 +30,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    player.stats.TakeDamage(10);
-        //}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ZObj.SetActive(true);
+        }
         //if (Input.GetKeyDown(KeyCode.A))
         //{
         //    player.stats.armor.AddModifier(10);

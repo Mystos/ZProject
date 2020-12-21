@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 	public Stat maxHealth;          // Maximum amount of health
-	public int currentHealth { get; protected set; }    // Current amount of health
+	public int CurrentHealth { get; protected set; }    // Current amount of health
 
 	public Stat damage;
 	public Stat armor;
@@ -14,7 +14,7 @@ public class PlayerStats : MonoBehaviour
 
 	public virtual void Awake()
 	{
-		currentHealth = maxHealth.GetValue();
+		CurrentHealth = maxHealth.GetValue();
 	}
 
 	
@@ -28,13 +28,13 @@ public class PlayerStats : MonoBehaviour
 	{
 
 		int armorDamage = Mathf.Min(armor.GetValue(), damage);
-		int healthDamage = Mathf.Min(currentHealth, damage - armorDamage);
+		int healthDamage = Mathf.Min(CurrentHealth, damage - armorDamage);
 		armor.AddModifier(-armorDamage);
-		currentHealth -= healthDamage;
+		CurrentHealth -= healthDamage;
 		Debug.Log(transform.name + " takes " + armorDamage + " armor damage and " + healthDamage + " health damage");
 
 		// If we hit 0. Die.
-		if (currentHealth <= 0)
+		if (CurrentHealth <= 0)
 		{
 			if (OnHealthReachedZero != null)
 			{
@@ -46,7 +46,7 @@ public class PlayerStats : MonoBehaviour
 	// Heal the character.
 	public void Heal(int amount)
 	{
-		currentHealth += amount;
-		currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth.GetValue());
+		CurrentHealth += amount;
+		CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth.GetValue());
 	}
 }

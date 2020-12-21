@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        sliderHealth.value = GameManager.Instance.player.stats.currentHealth;
+        sliderHealth.value = GameManager.Instance.player.stats.CurrentHealth;
         sliderArmor.value = GameManager.Instance.player.stats.armor.GetValue();
 
         PlayerShooter shooter = GameManager.Instance.player.GetComponent<PlayerShooter>();
