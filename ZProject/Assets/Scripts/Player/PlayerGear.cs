@@ -24,6 +24,11 @@ public class PlayerGear : MonoBehaviour
             return false;
     }
 
+    public void AddMoney(int amount)
+    {
+        CurrentMoney += amount;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Collectable collectable = other.GetComponent<Collectable>();

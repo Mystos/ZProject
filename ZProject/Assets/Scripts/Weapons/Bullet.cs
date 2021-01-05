@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] GameObject hitEffectPrefab;
+    public int damages = 0;
 
     public float Velocity { get; set; }
 
@@ -18,11 +19,12 @@ public class Bullet : MonoBehaviour
 
         Zombie zombie = collision.gameObject.GetComponent<Zombie>();
         if (zombie)
-            Destroy(collision.gameObject);
+        {
+            zombie.TakeHit(damages);
+        }
         else
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
-
     }
 }

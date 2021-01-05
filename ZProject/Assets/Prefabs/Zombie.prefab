@@ -125,6 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a491f786fbce54f9c4700725e2c8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth:
+    baseValue: 100
+  rewardAmount: 10
 --- !u!65 &349588115591316271
 BoxCollider:
   m_ObjectHideFlags: 0

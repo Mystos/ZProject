@@ -53,6 +53,7 @@ public class FireWeapon : MonoBehaviour
         if (bullet)
         {
             bullet.Velocity = data.bulletSpeed;
+            bullet.damages = Mathf.RoundToInt(CurrentDamages);
         }
     }
 
