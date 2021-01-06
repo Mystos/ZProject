@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        spawners = GetComponentsInChildren<Transform>().ToList();
+        spawners.Remove(transform);
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < spawners.Count; i++)
         {
+            int spawnerId = Random.Range(0, spawners.Count);
             Instantiate(zombiePrefab, spawners[i].position, Quaternion.identity);
         }
     }

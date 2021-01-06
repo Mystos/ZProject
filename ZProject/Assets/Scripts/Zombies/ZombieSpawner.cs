@@ -5,6 +5,9 @@ using System.Linq;
 
 public class ZombieSpawner : MonoBehaviour
 {
+    public int roomId;
+    public GameObject zombiePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +16,14 @@ public class ZombieSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SpawnZombie();
+        }
     }
 
     public void SpawnZombie()
     {
-  
+        Instantiate(zombiePrefab, transform.position, Quaternion.identity);
     }
 }

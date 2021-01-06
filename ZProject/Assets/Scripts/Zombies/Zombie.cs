@@ -11,15 +11,13 @@ public class Zombie : MonoBehaviour
     [SerializeField] Color damaged66Color;
     [SerializeField] Color damaged33Color;
 
-
     public int CurrentHealth { get; protected set; }    // Current amount of health
-
     private NavMeshAgent agent;
-
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        CurrentHealth = maxHealth.baseValue;
     }
 
     // Update is called once per frame
@@ -48,6 +46,11 @@ public class Zombie : MonoBehaviour
         {
             ChangeColor(damaged66Color);
         }
+    }
+
+    public void Attack()
+    {
+
     }
 
     private void ChangeColor(Color color)

@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         }
 
         player = FindObjectOfType<PlayerController>();
+
+        Cursor.visible = false;
     }
 
     private void Update()

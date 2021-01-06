@@ -5,43 +5,55 @@ using UnityEngine;
 public class Door : Interactable
 {
     public int cost;
-    public uint roomId;
+    public uint roomIdA;
+    public uint roomIdB;
 
-    public Animation openAnim;
+    private Animator anim;
+    private bool opened = false;
 
-    public void TryOpen()
+    private void Start()
     {
-    }
-
-    private void Unlock()
-    {
-      
-    }
-
-    public override void HideInteractionInterface()
-    {
-        throw new System.NotImplementedException();
+        anim = GetComponent<Animator>();
     }
 
     public override void Interact(GameObject playerRoot)
     {
-        throw new System.NotImplementedException();
+        if (opened)
+            return;
+
+        PlayerGear playerGear = playerRoot.GetComponent<PlayerGear>();
+        if (playerGear)
+        {
+            TryOpen(playerGear);
+        }
+        else
+            Debug.LogError("Can't find PlayerGear in " + playerRoot.name);
     }
 
     public override void ShowInteractionInterface()
     {
-        throw new System.NotImplementedException();
+        if (opened)
+            return;
+
+        UIManager.Instance.ShowInteractionPanel($"Open door ({cost}$)");
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override void HideInteractionInterface()
     {
-
+        UIManager.Instance.HideInteractionPanel();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void TryOpen(PlayerGear playerGear)
     {
+        if (playerGear.Buy(cost))
+        {
+            anim.Play("Open");
+            opened = true;
+        }
+        else
+            Debug.Log("Not enough money to open door");
 
     }
+
 }

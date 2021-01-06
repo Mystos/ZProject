@@ -9,6 +9,16 @@ public class WeaponDispenser : Interactable
     [SerializeField] float rotSpeed = 1f;
     private GameObject weaponGraphics;
 
+    void Start()
+    {
+        weaponGraphics = Instantiate(weaponPrefab.gameObject, weaponPosition);
+
+    }
+
+    void Update()
+    {
+        weaponGraphics.transform.Rotate(Vector3.up, rotSpeed);
+    }
 
     public override void HideInteractionInterface()
     {
@@ -35,16 +45,5 @@ public class WeaponDispenser : Interactable
         UIManager.Instance.ShowInteractionPanel($"Buy {weaponPrefab.data.name} ({weaponPrefab.data.cost}$)");
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        weaponGraphics = Instantiate(weaponPrefab.gameObject, weaponPosition);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        weaponGraphics.transform.Rotate(Vector3.up, rotSpeed);
-    }
 }
