@@ -38,11 +38,11 @@ public class Zombie : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (CurrentHealth <= 33)
+        else if (CurrentHealth <= maxHealth.GetValue() * 0.33f)
         {
             ChangeColor(damaged33Color);
         }
-        else if (CurrentHealth <= 66)
+        else if (CurrentHealth <= maxHealth.GetValue() * 0.66f)
         {
             ChangeColor(damaged66Color);
         }

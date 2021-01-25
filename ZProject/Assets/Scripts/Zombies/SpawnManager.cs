@@ -6,86 +6,40 @@ using System.Linq;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject zombiePrefab;
-    private List<Transform> spawners;
+    private Spawner[] spawners;
+
+    public float delay = 10f;
+    public float decreaseFactor = 0.95f;
+
+    private float timer = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawners = GetComponentsInChildren<Transform>().ToList();
-        spawners.Remove(transform);
+        spawners = FindObjectsOfType<Spawner>();
+        timer = delay;
     }
 
     // Update is called once per frame
     void Update()
     {
+        timer -= Time.deltaTime;
 
-    }
-
-    public void Spawn()
-    {
-        for (int i = 0; i < spawners.Count; i++)
+        if (timer <= 0)
         {
-            int spawnerId = Random.Range(0, spawners.Count);
-            Instantiate(zombiePrefab, spawners[i].position, Quaternion.identity);
+            SpawnZombie();
+            if (delay > 1)
+            {
+                delay *= decreaseFactor;
+            }
+            timer = delay;
         }
     }
+
+    public void SpawnZombie()
+    {
+        Spawner[] availableSpawners = spawners.Where(s => GameManager.Instance.accessibleRooms.Contains(s.roomId)).ToArray();
+        int spawnerId = Random.Range(0, availableSpawners.Length);
+        Instantiate(zombiePrefab, availableSpawners[spawnerId].transform.position, Quaternion.identity);
+    }
 }
-
-//public class WaveSpawner : MonoBehaviour
-//{
-//    public static int EnemiesAlive = 0;
-//    public Transform spawnPosition;
-//    public Text waveCountdownText;
-//    public float timeBetweenWaves = 5f;
-//    public Wave[] waves;
-//    public GameManager gameManager;
-
-//    private float countdown = 2f;
-//    private int waveIndex = 0;
-
-//    private void Update()
-//    {
-//        if (EnemiesAlive > 0)
-//        {
-//            return;
-//        }
-
-//        if (waveIndex == waves.Length)
-//        {
-//            gameManager.WinLevel();
-//            this.enabled = false;
-//        }
-
-//        if (countdown <= 0f)
-//        {
-//            StartCoroutine(SpawnWave());
-//            countdown = timeBetweenWaves;
-//            return;
-//        }
-
-//        countdown -= Time.deltaTime;
-//        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
-
-//        waveCountdownText.text = string.Format("{0:00.00}", countdown);
-//    }
-
-//    IEnumerator SpawnWave()
-//    {
-//        PlayerStats.Rounds++;
-//        Wave wave = waves[waveIndex];
-//        EnemiesAlive = wave.count;
-//        for (int i = 0; i < wave.count; i++)
-//        {
-//            SpawnEnemy(wave.enemy);
-//            yield return new WaitForSeconds(1f / wave.rate);
-//        }
-//        waveIndex++;
-
-//    }
-
-//    void SpawnEnemy(GameObject enemy)
-//    {
-//        GameObject GO = Instantiate(enemy, spawnPosition.position, spawnPosition.rotation);
-//        GO.transform.parent = GameObject.Find("Enemies").transform;
-//    }
-//}

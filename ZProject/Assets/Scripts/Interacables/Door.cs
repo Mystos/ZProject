@@ -50,6 +50,7 @@ public class Door : Interactable
         {
             anim.Play("Open");
             opened = true;
+            GameManager.Instance.UpdateAccessibleRooms(this);
         }
         else
             Debug.Log("Not enough money to open door");
