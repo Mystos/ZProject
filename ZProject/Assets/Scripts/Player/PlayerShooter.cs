@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerShooter : MonoBehaviour
-{
+public class PlayerShooter : MonoBehaviour {
     [SerializeField] Transform weaponHolder;
     [SerializeField] int weaponCount = 2;
+
+    public GameObject reloadingDisplay;
 
     public FireWeapon CurrentWeapon { get; private set; }
     private FireWeapon[] weapons;
@@ -13,46 +14,25 @@ public class PlayerShooter : MonoBehaviour
 
     public bool isReloading = false;
 
-    void Start()
-    {
+    void Start() {
         weapons = new FireWeapon[weaponCount];
     }
 
-    private void Update()
-    {
-        if (CurrentWeapon != null)
-        {
-            if (CurrentWeapon.LoaderAmount < CurrentWeapon.MaxLoaderCapacity)
-            {
-                if (Input.GetButtonDown("Reload"))
-                {
+    private void Update() {
+        if (CurrentWeapon != null) {
+            if (CurrentWeapon.LoaderAmount < CurrentWeapon.MaxLoaderCapacity) {
+                if (Input.GetButtonDown("Reload")) {
                     ReloadWeapon();
                     return;
                 }
             }
 
-            if (CurrentWeapon.FireRate <= 0f)
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    Fire();
-                }
-            }
-            else
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    InvokeRepeating("Fire", 0f, 1f / CurrentWeapon.FireRate);
-                }
-                else if (Input.GetButtonUp("Fire1"))
-                {
-                    CancelInvoke("Fire");
-                }
+            if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) {
+                Fire();
             }
         }
 
-        if (Input.GetButtonDown("SwapWeapons"))
-        {
+        if (Input.GetButtonDown("SwapWeapons")) {
             weaponIndex++;
             if (weaponIndex >= weaponCount)
                 weaponIndex = 0;
@@ -61,15 +41,12 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    void Fire()
-    {
-        if (isReloading)
-        {
+    void Fire() {
+        if (isReloading) {
             return;
         }
 
-        if (CurrentWeapon.LoaderAmount <= 0)
-        {
+        if (CurrentWeapon.LoaderAmount <= 0) {
             ReloadWeapon();
             return;
         }
@@ -77,10 +54,8 @@ public class PlayerShooter : MonoBehaviour
         CurrentWeapon.Fire();
     }
 
-    public void PickUpWeapon(FireWeapon weaponPrefab)
-    {
-        if (weapons[weaponIndex] != null)
-        {
+    public void PickUpWeapon(FireWeapon weaponPrefab) {
+        if (weapons[weaponIndex] != null) {
             Destroy(weapons[weaponIndex].gameObject);
         }
 
@@ -90,11 +65,9 @@ public class PlayerShooter : MonoBehaviour
         EquipWeapon(weaponIndex);
     }
 
-    public void EquipWeapon(int index)
-    {
+    public void EquipWeapon(int index) {
         CurrentWeapon = weapons[index];
-        for (int i = 0; i < weapons.Length; i++)
-        {
+        for (int i = 0; i < weapons.Length; i++) {
             if (weapons[i] != null)
                 weapons[i].Unequip();
         }
@@ -102,34 +75,33 @@ public class PlayerShooter : MonoBehaviour
             CurrentWeapon.Equip();
     }
 
-    public void ReloadWeapon()
-    {
+    public void ReloadWeapon() {
         if (isReloading)
             return;
 
         StartCoroutine(ReloadCoroutine());
     }
 
-    private IEnumerator ReloadCoroutine()
-    {
+    private IEnumerator ReloadCoroutine() {
         Debug.Log("Reloading...");
 
         isReloading = true;
 
         //PlayReloadAnim()
+        reloadingDisplay.SetActive(true);
+        AudioManager.instance.Play("Reload");
 
         yield return new WaitForSeconds(CurrentWeapon.ReloadTime);
 
         CurrentWeapon.Refill();
+        reloadingDisplay.SetActive(false);
 
         isReloading = false;
     }
 
-    private void PlayReloadAnim()
-    {
+    private void PlayReloadAnim() {
         Animator anim = GetComponent<Animator>();
-        if (anim != null)
-        {
+        if (anim != null) {
             anim.SetTrigger("Reload");
         }
     }

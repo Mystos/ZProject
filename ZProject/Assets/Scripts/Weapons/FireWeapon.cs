@@ -4,8 +4,7 @@ using UnityEngine;
 
 public enum EWeaponType { Pistol, Shotgun, Smg, Sniper, MachineGun }
 
-public class FireWeapon : MonoBehaviour
-{
+public class FireWeapon : MonoBehaviour {
     public WeaponData data;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
@@ -21,17 +20,18 @@ public class FireWeapon : MonoBehaviour
     public int BulletsAmount { get; private set; }
     //public int MaxBullets { get; private set; }
 
+    private float timer = 0f;
 
     private GameObject currentGraphics;
     private int upgradeLevel = 1;
 
-    void Start()
-    {
+    public GameObject test;
+
+    void Start() {
         Init();
     }
 
-    public void Init()
-    {
+    public void Init() {
         CurrentDamages = data.baseDamages;
         FireRate = data.fireRate;
         Range = data.range;
@@ -45,57 +45,69 @@ public class FireWeapon : MonoBehaviour
             currentGraphics = upgradeGraphics[0];
     }
 
-    public void Fire()
-    {
+    private void Update() {
+
+        if (timer > 0) {
+            timer -= Time.deltaTime;
+        }
+    }
+
+    public void Fire() {
+
+        if (timer > 0)
+            return;
+
+        AudioManager.instance.Play(data.name);
         LoaderAmount--;
-        GameObject go = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(transform.forward, Vector3.up));
+        timer = 1 / FireRate;
+
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        GameObject go = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(firePoint.forward, Vector3.up));
+        if (Physics.Raycast(ray, out hit, GameManager.Instance.groundLayer)) {
+            Vector3 target = new Vector3(hit.point.x, firePoint.transform.position.y, hit.point.z);
+            if (Vector3.Angle(firePoint.forward, target - firePoint.position) <= 35f) {
+                go.transform.LookAt(target);
+            }
+        }
         Bullet bullet = go.GetComponent<Bullet>();
-        if (bullet)
-        {
+        if (bullet) {
             bullet.Velocity = data.bulletSpeed;
             bullet.damages = Mathf.RoundToInt(CurrentDamages);
         }
     }
 
-    public void Equip()
-    {
+    public void Equip() {
         currentGraphics.SetActive(true);
     }
 
-    public void Refill()
-    {
+    public void Refill() {
         int refillAmount = MaxLoaderCapacity - LoaderAmount;
 
-        if (BulletsAmount >= refillAmount)
-        {
+        if (BulletsAmount >= refillAmount) {
             LoaderAmount = MaxLoaderCapacity;
             BulletsAmount -= refillAmount;
         }
-        else
-        {
+        else {
             LoaderAmount += BulletsAmount;
             BulletsAmount = 0;
         }
     }
 
-    public void Unequip()
-    {
-        for (int i = 0; i < upgradeGraphics.Length; i++)
-        {
+    public void Unequip() {
+        for (int i = 0; i < upgradeGraphics.Length; i++) {
             upgradeGraphics[i].SetActive(false);
         }
     }
 
-    public void UpgradeWeapon()
-    {
+    public void UpgradeWeapon() {
         upgradeLevel++;
-        if (upgradeLevel < upgradeGraphics.Length)
-        {
+        if (upgradeLevel < upgradeGraphics.Length) {
             currentGraphics = upgradeGraphics[upgradeLevel];
         }
 
         CurrentDamages = data.baseDamages * data.upgradeFactor;
     }
-
 
 }

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: RifleData
   m_EditorClassIdentifier: 
   name: Rifle
-  baseDamages: 10
+  baseDamages: 34
   upgradeFactor: 1.5
-  cost: 10
+  cost: 100
   loaderMaxCapacity: 30
-  maxCapacity: 60
+  maxCapacity: 120
   range: 0
   reloadTime: 1
-  fireRate: 1
-  bulletSpeed: 30
+  fireRate: 8
+  bulletSpeed: 50

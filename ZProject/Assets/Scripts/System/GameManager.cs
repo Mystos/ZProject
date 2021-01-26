@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public LayerMask zombiesLayer;
     public LayerMask groundLayer;
+    public LayerMask playerLayer;
 
     public List<uint> accessibleRooms;
 
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
 
         player = FindObjectOfType<PlayerController>();
 
-        Cursor.visible = false;
+        Cursor.visible = true;
     }
 
     private void Start()

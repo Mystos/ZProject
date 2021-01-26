@@ -348,7 +348,7 @@ CharacterController:
   m_Height: 0.5
   m_Radius: 0.6
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -373,8 +373,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   offset: 2
-  walkSpeed: 4
-  runSpeed: 6
+  walkSpeed: 5
+  runSpeed: 8
   stats: {fileID: 4724187206962447038}
 --- !u!114 &4724187206962447038
 MonoBehaviour:
@@ -420,6 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 4724187208004442976}
   weaponCount: 2
+  reloadingDisplay: {fileID: 0}
   isReloading: 0
 --- !u!114 &4724187206962447012
 MonoBehaviour:
@@ -569,7 +570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4724187208004442977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0.354}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0.354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4724187206962447011}
