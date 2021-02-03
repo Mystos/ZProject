@@ -60,6 +60,7 @@ public class Zombie : MonoBehaviour {
             }
 
             Destroy(gameObject);
+            UIManager.Instance.IncrementScore();
         }
         else if (CurrentHealth <= maxHealth.GetValue() * 0.33f) {
             ChangeColor(damaged33Color);

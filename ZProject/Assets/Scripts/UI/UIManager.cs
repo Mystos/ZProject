@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI interactionText;
     [SerializeField] TextMeshProUGUI bulletMagazineText;
     [SerializeField] TextMeshProUGUI moneyText;
+    [SerializeField] TextMeshProUGUI scoreText;
+
+    private int score = 0;
 
     private void Awake()
     {
@@ -48,6 +51,11 @@ public class UIManager : MonoBehaviour
 
         PlayerGear playerGear = GameManager.Instance.player.GetComponent<PlayerGear>();
         moneyText.text = $"${playerGear.CurrentMoney}";
+    }
+
+    public void IncrementScore() {
+        score++;
+        scoreText.text = score.ToString();
     }
 
     public void ShowInteractionPanel(string displayText)
